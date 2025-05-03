@@ -1,0 +1,298 @@
+/* Import font Inter từ Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap');
+
+.product-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  font-family: 'Inter', 'Roboto', sans-serif; /* Áp dụng font Inter */
+}
+
+.product-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+}
+
+.product-header h2 {
+  font-size: 28px;
+  color: #2c3e50;
+  font-weight: 600;
+  margin: 0;
+}
+
+.filter-select {
+  padding: 10px 15px;
+  font-size: 16px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
+  color: #2c3e50;
+  transition: border-color 0.3s ease;
+  font-family: 'Inter', 'Roboto', sans-serif; /* Áp dụng font cho select */
+}
+
+.filter-select:focus {
+  outline: none;
+  border-color: #3498db;
+}
+
+.add-button {
+  background-color: #3498db;
+  color: white;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 2px 6px rgba(52, 152, 219, 0.3);
+  font-family: 'Inter', 'Roboto', sans-serif; /* Áp dụng font cho button */
+}
+
+.add-button:hover {
+  background-color: #2980b9;
+  transform: translateY(-2px);
+}
+
+.product-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin-top: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.product-table th,
+.product-table td {
+  padding: 15px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+  font-family: 'Inter', 'Roboto', sans-serif; /* Áp dụng font cho bảng */
+}
+
+.product-table th {
+  background-color: #3498db;
+  color: #fff;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.product-table img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 2px solid #ddd;
+  transition: transform 0.3s ease;
+}
+
+.product-table img:hover {
+  transform: scale(1.1);
+}
+
+.action-buttons button {
+  margin-right: 10px;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  font-family: 'Inter', 'Roboto', sans-serif; /* Áp dụng font cho nút */
+}
+
+.edit-button {
+  background-color: #2ecc71;
+  color: white;
+}
+
+.edit-button:hover {
+  background-color: #27ae60;
+  transform: translateY(-1px);
+}
+
+.delete-button {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.delete-button:hover {
+  background-color: #c0392b;
+  transform: translateY(-1px);
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: #fff;
+  padding: 25px;
+  border-radius: 12px;
+  width: 500px;
+  max-width: 90%;
+  height: 90vh; /* Chiều cao 90% màn hình */
+  overflow-y: auto; /* Thêm thanh cuộn dọc */
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  animation: slideIn 0.3s ease-out;
+  font-family: 'Inter', 'Roboto', sans-serif; /* Áp dụng font cho modal */
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.modal-content h3 {
+  margin-top: 0;
+  color: #2c3e50;
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: #34495e;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 90%; /* Đặt width 90% */
+  padding: 10px 12px;
+  border: 2px solid #ddd;
+  border-radius: 6px;
+  font-size: 16px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  font-family: 'Inter', 'Roboto', sans-serif; /* Áp dụng font cho input */
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
+}
+
+.form-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+}
+
+.form-buttons button {
+  padding: 12px 25px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  font-family: 'Inter', 'Roboto', sans-serif; /* Áp dụng font cho nút */
+}
+
+.save-button {
+  background-color: #2ecc71;
+  color: white;
+}
+
+.save-button:hover {
+  background-color: #27ae60;
+  transform: translateY(-2px);
+}
+
+.cancel-button {
+  background-color: #95a5a6;
+  color: white;
+}
+
+.cancel-button:hover {
+  background-color: #7f8c8d;
+  transform: translateY(-2px);
+}
+
+.spinner {
+  animation: spin 1s linear infinite;
+  margin-right: 8px;
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .product-header {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .product-table {
+    font-size: 14px;
+  }
+
+  .product-table th,
+  .product-table td {
+    padding: 10px;
+  }
+
+  .product-table img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .action-buttons button {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+
+  .modal-content {
+    width: 90%;
+    padding: 15px;
+    height: 90vh; /* Giữ chiều cao 90% trên mobile */
+  }
+
+  .form-buttons button {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+}
