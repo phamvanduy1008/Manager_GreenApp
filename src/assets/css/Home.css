@@ -1,0 +1,245 @@
+/* Import font từ Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* Reset và kiểu cơ bản */
+.home-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 24px;
+  font-family: 'Inter', sans-serif;
+  background-color: #f8fafc;
+  min-height: 100vh;
+}
+
+/* Tiêu đề */
+.home-container h1 {
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 32px;
+  text-align: center;
+  letter-spacing: -0.025em;
+}
+
+/* Grid cho các card */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  margin-bottom: 48px;
+}
+
+/* Card thiết kế */
+.card {
+  background: linear-gradient(145deg, #ffffff, #f9fafb);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid #e5e7eb;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.12);
+}
+
+.card svg {
+  font-size: 2.75rem;
+  margin-bottom: 12px;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.card h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 8px;
+}
+
+.card p.text-2xl {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 4px;
+}
+
+.card p.text-sm {
+  font-size: 0.875rem;
+  color: #6b7280;
+  line-height: 1.5;
+}
+
+/* Màu sắc cho biểu tượng */
+.text-blue-600 { color: #2563eb; }
+.text-green-600 { color: #16a34a; }
+.text-yellow-600 { color: #d97706; }
+.text-indigo-600 { color: #4f46e5; }
+.text-purple-600 { color: #7c3aed; }
+
+/* Khu vực biểu đồ */
+.chart {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+  margin-bottom: 32px;
+}
+
+/* Bảng đơn hàng và sản phẩm */
+.recent-orders,
+.top-products {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+  margin-bottom: 32px;
+}
+
+.recent-orders h2,
+.top-products h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 16px;
+}
+
+.recent-orders table,
+.top-products table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.recent-orders th,
+.top-products th {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #374151;
+  text-align: left;
+  padding: 12px 16px;
+  background: #f3f4f6;
+  position: sticky;
+  top: 0;
+}
+
+.recent-orders td,
+.top-products td {
+  font-size: 0.875rem;
+  color: #1f2937;
+  padding: 12px 16px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.recent-orders tr:hover,
+.top-products tr:hover {
+  background-color: #f9fafb;
+  transition: background-color 0.2s ease;
+}
+
+/* Đầu bảng bo góc */
+.recent-orders th:first-child,
+.top-products th:first-child {
+  border-top-left-radius: 8px;
+}
+
+.recent-orders th:last-child,
+.top-products th:last-child {
+  border-top-right-radius: 8px;
+}
+
+/* Thông báo khi không có dữ liệu */
+.recent-orders p.text-gray-600,
+.top-products p.text-gray-600 {
+  font-size: 1rem;
+  color: #6b7280;
+  text-align: center;
+  padding: 24px;
+  font-style: italic;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .home-container {
+    padding: 16px;
+  }
+
+  .home-container h1 {
+    font-size: 1.75rem;
+  }
+
+  .grid {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  }
+
+  .card {
+    padding: 20px;
+  }
+
+  .card svg {
+    font-size: 2.25rem;
+  }
+
+  .card h3 {
+    font-size: 1.125rem;
+  }
+
+  .card p.text-2xl {
+    font-size: 1.75rem;
+  }
+
+  .recent-orders h2,
+  .top-products h2 {
+    font-size: 1.25rem;
+  }
+
+  .recent-orders th,
+  .top-products th,
+  .recent-orders td,
+  .top-products td {
+    font-size: 0.75rem;
+    padding: 10px;
+  }
+
+  .chart {
+    padding: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .home-container {
+    padding: 12px;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .card p.text-2xl {
+    font-size: 1.5rem;
+  }
+
+  .recent-orders table,
+  .top-products table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .recent-orders th,
+  .top-products th,
+  .recent-orders td,
+  .top-products td {
+    min-width: 120px;
+  }
+
+  .chart {
+    padding: 12px;
+  }
+}
