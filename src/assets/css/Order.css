@@ -1,3 +1,4 @@
+/* Container chính của trang quản lý đơn hàng */
 .order-container {
     padding: 40px;
     background-color: #f3f4f6;
@@ -5,14 +6,26 @@
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* Tiêu đề trang */
 .order-header {
     color: #1e293b;
     margin-bottom: 30px;
     text-align: center;
     text-transform: uppercase;
     letter-spacing: 1px;
+    font-size: 2rem;
+    font-weight: 700;
 }
 
+/* Thông báo lỗi */
+.order-container p.text-red-600 {
+    color: #ef4444;
+    text-align: center;
+    font-size: 1rem;
+    margin-top: 20px;
+}
+
+/* Container cho mỗi danh mục trạng thái */
 .order-category {
     background: white;
     border-radius: 12px;
@@ -26,17 +39,34 @@
     transform: translateY(-2px);
 }
 
+/* Tiêu đề danh mục (Chưa xử lý, Đã xử lý, v.v.) */
 .category-title {
     color: #1e40af;
     border-bottom: 2px solid #1e40af;
     padding-bottom: 8px;
     margin-bottom: 20px;
+    font-size: 1.5rem;
+    font-weight: 600;
 }
 
+/* Thông báo khi danh mục rỗng */
+.order-category p.text-gray-600 {
+    color: #6b7280;
+    font-size: 1rem;
+    padding: 16px;
+    background: white;
+    border-radius: 8px;
+    text-align: center;
+}
+
+/* Bảng đơn hàng */
 .order-table {
     width: 100%;
     border-collapse: separate;
     border-spacing: 0;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
 }
 
 .order-table th {
@@ -59,6 +89,7 @@
     transition: background-color 0.2s;
 }
 
+/* Nút "Xem chi tiết" */
 .view-button {
     background-color: #3b82f6;
     color: white;
@@ -79,6 +110,64 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
+/* Nút "Đã chuẩn bị hàng" */
+.prepare-button {
+    background-color: #10b981;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.prepare-button:hover {
+    background-color: #059669;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Nút "Xóa" */
+.delete-button {
+    background-color: #ef4444;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.delete-button:hover {
+    background-color: #dc2626;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Nút "Đóng" */
+.cancel-button {
+    background-color: #64748b;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.cancel-button:hover {
+    background-color: #475569;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Modal chi tiết đơn hàng */
 .modal {
     position: fixed;
     top: 0;
@@ -104,18 +193,19 @@
     animation: slideIn 0.3s ease-out;
 }
 
+/* Animation khi mở modal */
 @keyframes slideIn {
     from {
         transform: translateY(-50px);
         opacity: 0;
     }
-
     to {
         transform: translateY(0);
         opacity: 1;
     }
 }
 
+/* Nhóm thông tin trong modal */
 .form-group {
     margin-bottom: 20px;
 }
@@ -135,69 +225,7 @@
     font-size: 1rem;
 }
 
-.form-buttons {
-    display: flex;
-    justify-content: flex-end;
-    gap: 12px;
-}
-
-.cancel-button {
-    background-color: #64748b;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.cancel-button:hover {
-    background-color: #475569;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.ship-button {
-    background-color: #10b981;
-    /* Màu xanh lá cây */
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.ship-button:hover {
-    background-color: #059669;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.delete-button {
-    background-color: #ef4444;
-    /* Màu đỏ */
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.delete-button:hover {
-    background-color: #dc2626;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-/* Style cho bảng sản phẩm trong modal */
+/* Bảng sản phẩm trong modal */
 .form-group table {
     width: 100%;
     border-collapse: collapse;
@@ -218,4 +246,11 @@
 
 .form-group tr:hover {
     background-color: #eef2ff;
+}
+
+/* Container các nút trong modal */
+.form-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
 }
