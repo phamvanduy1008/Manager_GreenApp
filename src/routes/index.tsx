@@ -1,15 +1,14 @@
 // routes/index.tsx
-import { Routes, Route } from 'react-router-dom';
-import Home from '../pages/home/Home';
-import Message from '../pages/message/Message';
-import Order from '../pages/order/Order';
-import Price from '../pages/price/Price';
-import Product from '../pages/product/Product';
-import Support from '../pages/support/Support';
-import NotFound from '../pages/NotFound';
-import Login from '../features/auth/Login';
-import PrivateRoute from '../components/PrivateRoute';
-import AuthenticatedLayout from '../components/AuthenticatedLayout';
+import { Routes, Route } from "react-router-dom";
+import Home from "../pages/home/Home";
+import Message from "../pages/message/Message";
+import Order from "../pages/order/Order";
+import Price from "../pages/price/Price";
+import Product from "../pages/product/Product";
+import NotFound from "../pages/NotFound";
+import Login from "../features/auth/Login";
+import PrivateRoute from "../components/PrivateRoute";
+import AuthenticatedLayout from "../components/AuthenticatedLayout";
 
 const AppRoutes = () => {
   return (
@@ -65,16 +64,7 @@ const AppRoutes = () => {
           </PrivateRoute>
         }
       />
-      <Route
-        path="/support"
-        element={
-          <PrivateRoute>
-            <AuthenticatedLayout>
-              <Support />
-            </AuthenticatedLayout>
-          </PrivateRoute>
-        }
-      />
+
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

@@ -1,6 +1,6 @@
-import { Link, useNavigate } from 'react-router-dom';
-import { useContext } from 'react';
-import { AuthContext } from '../context/AuthContext';
+import { Link, useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 
 const AuthenticatedLayout = ({ children }: { children: React.ReactNode }) => {
   const { logout } = useContext(AuthContext);
@@ -8,7 +8,7 @@ const AuthenticatedLayout = ({ children }: { children: React.ReactNode }) => {
 
   const handleLogout = () => {
     logout(); // Gọi hàm logout từ context
-    navigate('/login'); // Điều hướng đến trang login
+    navigate("/login"); // Điều hướng đến trang login
   };
 
   return (
@@ -96,22 +96,7 @@ const AuthenticatedLayout = ({ children }: { children: React.ReactNode }) => {
             </svg>
             Message
           </Link>
-          <Link to="/support" className="sidebar-link">
-            <svg
-              className="sidebar-icon"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"
-              />
-            </svg>
-            Support
-          </Link>
+
           <button onClick={handleLogout} className="sidebar-link logout-button">
             <svg
               className="sidebar-icon"
