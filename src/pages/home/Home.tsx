@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { ipAddress } from "../../constants/ip";
-import { FaUsers, FaBox, FaMoneyBillWave, FaTruck, FaBoxOpen } from "react-icons/fa";
+import {
+  FaUsers,
+  FaBox,
+  FaMoneyBillWave,
+  FaTruck,
+  FaBoxOpen,
+} from "react-icons/fa";
 import { Line, Bar } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -16,14 +22,29 @@ import {
 import "../../assets/css/Home.css";
 
 // Đăng ký các thành phần cần thiết cho Chart.js
-ChartJS.register(CategoryScale, LinearScale, LineElement, PointElement, BarElement, Title, Tooltip, Legend);
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  LineElement,
+  PointElement,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
 // Interface cho dữ liệu dashboard
 interface DashboardData {
   totalUsers: number;
   activeUsers: number;
   totalOrders: number;
-  orderStatus: { pending: number; resolved: number; processing: number; delivered: number; cancelled: number };
+  orderStatus: {
+    pending: number;
+    resolved: number;
+    processing: number;
+    delivered: number;
+    cancelled: number;
+  };
   totalRevenue: number;
   revenueByDay: Array<{ date: string; total: number }>;
   totalProducts: number;
@@ -66,6 +87,7 @@ const Home: React.FC = () => {
         throw new Error(`Lỗi API /api/dashboard: ${response.statusText}`);
       }
       const { success, data: apiData, message } = await response.json();
+
       if (!success) {
         throw new Error(message || "Không thể lấy dữ liệu dashboard");
       }
@@ -88,20 +110,40 @@ const Home: React.FC = () => {
         totalProducts: apiData.totalProducts || 0,
         availableProducts: apiData.availableProducts || 0,
         activeShippers: apiData.activeShippers || 0,
-        recentOrders: apiData.recentOrders?.map((o: any) => ({
-          _id: o._id,
-          orderCode: o.orderCode,
-          full_name: o.full_name || "Không xác định",
-          total_price: o.total_price || 0,
-          status: o.status,
-          dateOrder: o.dateOrder ? new Date(o.dateOrder).toLocaleDateString() : "N/A",
-        })) || [],
-        topProducts: apiData.topProducts?.map((p: any) => ({
-          _id: p._id,
-          name: p.name || "Không xác định",
-          sold: p.sold || 0,
-          price: p.price || 0,
-        })) || [],
+        recentOrders:
+          apiData.recentOrders?.map(
+            (order: {
+              _id: string;
+              orderCode: string;
+              full_name: string;
+              total_price: number;
+              status: string;
+              dateOrder: string;
+            }) => ({
+              _id: order._id,
+              orderCode: order.orderCode,
+              full_name: order.full_name || "Không xác định",
+              total_price: order.total_price || 0,
+              status: order.status,
+              dateOrder: order.dateOrder
+                ? new Date(order.dateOrder).toLocaleDateString()
+                : "N/A",
+            })
+          ) || [],
+        topProducts:
+          apiData.topProducts?.map(
+            (product: {
+              _id: string;
+              name: string;
+              sold: number;
+              price: number;
+            }) => ({
+              _id: product._id,
+              name: product.name || "Không xác định",
+              sold: product.sold || 0,
+              price: product.price || 0,
+            })
+          ) || [],
       });
       setError(null);
     } catch (error) {
@@ -136,13 +178,7 @@ const Home: React.FC = () => {
           "#22c55e", // Green cho delivered
           "#ef4444", // Red cho cancelled
         ],
-        borderColor: [
-          "#d97706",
-          "#2563eb",
-          "#7c3aed",
-          "#16a34a",
-          "#dc2626",
-        ],
+        borderColor: ["#d97706", "#2563eb", "#7c3aed", "#16a34a", "#dc2626"],
         borderWidth: 1,
       },
     ],
@@ -150,7 +186,9 @@ const Home: React.FC = () => {
 
   // Dữ liệu cho biểu đồ doanh thu
   const revenueChartData = {
-    labels: data?.revenueByDay.map((r) => new Date(r.date).toLocaleDateString()) || [],
+    labels:
+      data?.revenueByDay.map((r) => new Date(r.date).toLocaleDateString()) ||
+      [],
     datasets: [
       {
         label: "Doanh thu (VNĐ)",
@@ -305,27 +343,34 @@ const Home: React.FC = () => {
           <FaUsers className="text-blue-600 text-3xl mb-2" />
           <h3 className="text-lg font-semibold">Người dùng</h3>
           <p className="text-2xl font-bold">{data.totalUsers}</p>
-          <p className="text-sm text-gray-600">Đang hoạt động: {data.activeUsers}</p>
+          <p className="text-sm text-gray-600">
+            Đang hoạt động: {data.activeUsers}
+          </p>
         </div>
         <div className="card bg-white p-6 rounded-lg shadow-lg">
           <FaBox className="text-green-600 text-3xl mb-2" />
           <h3 className="text-lg font-semibold">Đơn hàng</h3>
           <p className="text-2xl font-bold">{data.totalOrders}</p>
           <p className="text-sm text-gray-600">
-            Đã giao: {data.orderStatus.delivered} | Chưa xử lý: {data.orderStatus.pending}
+            Đã giao: {data.orderStatus.delivered} | Chưa xử lý:{" "}
+            {data.orderStatus.pending}
           </p>
         </div>
         <div className="card bg-white p-6 rounded-lg shadow-lg">
           <FaMoneyBillWave className="text-yellow-600 text-3xl mb-2" />
           <h3 className="text-lg font-semibold">Doanh thu</h3>
-          <p className="text-2xl font-bold">{data.totalRevenue.toLocaleString()} VNĐ</p>
+          <p className="text-2xl font-bold">
+            {data.totalRevenue.toLocaleString()} VNĐ
+          </p>
           <p className="text-sm text-gray-600">Đã giao hàng</p>
         </div>
         <div className="card bg-white p-6 rounded-lg shadow-lg">
           <FaBoxOpen className="text-indigo-600 text-3xl mb-2" />
           <h3 className="text-lg font-semibold">Sản phẩm</h3>
           <p className="text-2xl font-bold">{data.totalProducts}</p>
-          <p className="text-sm text-gray-600">Có sẵn: {data.availableProducts}</p>
+          <p className="text-sm text-gray-600">
+            Có sẵn: {data.availableProducts}
+          </p>
         </div>
         <div className="card bg-white p-6 rounded-lg shadow-lg">
           <FaTruck className="text-purple-600 text-3xl mb-2" />
@@ -343,7 +388,9 @@ const Home: React.FC = () => {
       {/* Biểu đồ doanh thu */}
       <div className="chart bg-white p-6 rounded-lg shadow-lg mb-8">
         {data.revenueByDay.length === 0 ? (
-          <p className="text-gray-600">Không có dữ liệu doanh thu trong 7 ngày qua.</p>
+          <p className="text-gray-600">
+            Không có dữ liệu doanh thu trong 7 ngày qua.
+          </p>
         ) : (
           <Line data={revenueChartData} options={revenueChartOptions} />
         )}
@@ -372,7 +419,9 @@ const Home: React.FC = () => {
                   <td className="p-2">{order.full_name}</td>
                   <td className="p-2">{order.total_price.toLocaleString()}</td>
                   <td className="p-2">
-                    {orderStatusMap.find((status) => status.key === order.status)?.label || order.status}
+                    {orderStatusMap.find(
+                      (status) => status.key === order.status
+                    )?.label || order.status}
                   </td>
                   <td className="p-2">{order.dateOrder}</td>
                 </tr>
