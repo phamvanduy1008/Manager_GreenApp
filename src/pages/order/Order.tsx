@@ -97,10 +97,18 @@ const Order: React.FC = () => {
   };
 
   // Chuẩn hóa status
-  const normalizeStatus = (status: string | undefined | null): Order["status"] => {
+  const normalizeStatus = (
+    status: string | undefined | null
+  ): Order["status"] => {
     if (!status) return "pending";
     const cleanedStatus = status.trim().toLowerCase();
-    return ["pending", "resolved", "processing", "delivered", "cancelled"].includes(cleanedStatus)
+    return [
+      "pending",
+      "resolved",
+      "processing",
+      "delivered",
+      "cancelled",
+    ].includes(cleanedStatus)
       ? (cleanedStatus as Order["status"])
       : "pending";
   };
@@ -119,69 +127,73 @@ const Order: React.FC = () => {
       }
 
       // Kiểm tra và ánh xạ dữ liệu
-      const formattedOrders = data.sellers.map((order: any) => {
-        if (!order._id) {
-          console.warn("Đơn hàng thiếu _id:", order);
-          return null;
-        }
-        return {
-          _id: order._id,
-          status: normalizeStatus(order.status),
-          user: order.user
-            ? {
-                ...order.user,
-                email: order.user.email || "Không xác định",
-                profile: {
-                  full_name: order.user.profile?.full_name || "Không xác định",
-                  username: order.user.profile?.username || "",
-                  gender: order.user.profile?.gender || "",
-                  birthday: order.user.profile?.birthday || null,
-                  phone: order.user.profile?.phone || "",
-                  avatar: order.user.profile?.avatar || "",
-                  address: order.user.profile?.address || "",
+      const formattedOrders = data.sellers
+        .map((order: Order) => {
+          if (!order._id) {
+            console.warn("Đơn hàng thiếu _id:", order);
+            return null;
+          }
+          return {
+            _id: order._id,
+            status: normalizeStatus(order.status),
+            user: order.user
+              ? {
+                  ...order.user,
+                  email: order.user.email || "Không xác định",
+                  profile: {
+                    full_name:
+                      order.user.profile?.full_name || "Không xác định",
+                    username: order.user.profile?.username || "",
+                    gender: order.user.profile?.gender || "",
+                    birthday: order.user.profile?.birthday || null,
+                    phone: order.user.profile?.phone || "",
+                    avatar: order.user.profile?.avatar || "",
+                    address: order.user.profile?.address || "",
+                  },
+                  isActive: order.user.isActive ?? false,
+                  isVerified: order.user.isVerified ?? false,
+                  createdAt: order.user.createdAt || new Date().toISOString(),
+                  updatedAt: order.user.updatedAt || new Date().toISOString(),
+                }
+              : null,
+            products:
+              order.products?.map((item: ProductItem) => ({
+                product: {
+                  _id: item.product?._id || "",
+                  name: item.product?.name || "Không xác định",
+                  price: item.product?.price || 0,
+                  image: item.product?.image || "",
+                  info: item.product?.info || "",
                 },
-                isActive: order.user.isActive ?? false,
-                isVerified: order.user.isVerified ?? false,
-                createdAt: order.user.createdAt || new Date().toISOString(),
-                updatedAt: order.user.updatedAt || new Date().toISOString(),
-              }
-            : null,
-          products: order.products?.map((item: any) => ({
-            product: {
-              _id: item.product?._id || "",
-              name: item.product?.name || "Không xác định",
-              price: item.product?.price || 0,
-              image: item.product?.image || "",
-              info: item.product?.info || "",
-            },
-            quantity: item.quantity || 1,
-            price: item.price || 0,
-          })) || [],
-          orderCode: order.orderCode || "N/A",
-          full_name: order.full_name || "Không xác định",
-          phone: order.phone || "Không xác định",
-          address: order.address || "Không xác định",
-          paymentMethod: order.paymentMethod || "Không xác định",
-          fee: order.fee || 0,
-          total_price: order.total_price || 0,
-          dateOrder: order.dateOrder
-            ? new Date(order.dateOrder).toLocaleDateString()
-            : "N/A",
-          createdAt: order.createdAt
-            ? new Date(order.createdAt).toLocaleDateString()
-            : "N/A",
-          updatedAt: order.updatedAt
-            ? new Date(order.updatedAt).toLocaleDateString()
-            : "N/A",
-        };
-      }).filter((order: any) => order !== null);
+                quantity: item.quantity || 1,
+                price: item.price || 0,
+              })) || [],
+            orderCode: order.orderCode || "N/A",
+            full_name: order.full_name || "Không xác định",
+            phone: order.phone || "Không xác định",
+            address: order.address || "Không xác định",
+            paymentMethod: order.paymentMethod || "Không xác định",
+            fee: order.fee || 0,
+            total_price: order.total_price || 0,
+            dateOrder: order.dateOrder
+              ? new Date(order.dateOrder).toLocaleDateString()
+              : "N/A",
+            createdAt: order.createdAt
+              ? new Date(order.createdAt).toLocaleDateString()
+              : "N/A",
+            updatedAt: order.updatedAt
+              ? new Date(order.updatedAt).toLocaleDateString()
+              : "N/A",
+          };
+        })
+        .filter((order: Order) => order !== null);
 
       console.log("Dữ liệu đơn hàng sau xử lý:", formattedOrders);
       setOrders(formattedOrders);
       setError(null);
-    } catch (error: any) {
+    } catch (error) {
       console.error("Lỗi khi lấy danh sách đơn hàng:", error);
-      setError(error.message || "Không thể tải danh sách đơn hàng");
+      setError( "Không thể tải danh sách đơn hàng");
     }
   };
 
@@ -218,7 +230,7 @@ const Order: React.FC = () => {
         alert("Đơn hàng đã được chuẩn bị!");
         closeModal();
       }
-    } catch (error: any) {
+    } catch (error) {
       console.error("Lỗi khi cập nhật trạng thái:", error);
       alert("Không thể cập nhật trạng thái đơn hàng");
     }
@@ -243,7 +255,7 @@ const Order: React.FC = () => {
           alert("Đơn hàng đã được xóa thành công!");
           closeModal();
         }
-      } catch (error: any) {
+      } catch (error) {
         console.error("Lỗi khi xóa đơn hàng:", error);
         alert("Không thể xóa đơn hàng");
       }
@@ -325,9 +337,12 @@ const Order: React.FC = () => {
       {statusCategories.map(({ key, label }) => (
         <div key={key} className="order-category mb-8">
           <h2 className="category-title text-xl font-semibold text-gray-800 mb-4">
-            {label} ({categorizedOrders[key as keyof typeof categorizedOrders].length} đơn hàng)
+            {label} (
+            {categorizedOrders[key as keyof typeof categorizedOrders].length}{" "}
+            đơn hàng)
           </h2>
-          {categorizedOrders[key as keyof typeof categorizedOrders].length > 0 ? (
+          {categorizedOrders[key as keyof typeof categorizedOrders].length >
+          0 ? (
             <table className="order-table w-full bg-white rounded-lg shadow-lg">
               <thead>
                 <tr className="bg-blue-600 text-white">
@@ -338,26 +353,28 @@ const Order: React.FC = () => {
                 </tr>
               </thead>
               <tbody>
-                {categorizedOrders[key as keyof typeof categorizedOrders].map((order) => (
-                  <tr
-                    key={order._id}
-                    className="border-b hover:bg-gray-50 transition-colors"
-                  >
-                    <td className="p-4 text-gray-700">{order.orderCode}</td>
-                    <td className="p-4 text-gray-700">{order.dateOrder}</td>
-                    <td className="p-4 text-gray-700">
-                      {order.total_price.toLocaleString()}
-                    </td>
-                    <td className="p-4">
-                      <button
-                        className="view-button px-4 py-2 rounded-md text-white bg-blue-600 hover:bg-blue-700 transition-colors"
-                        onClick={() => openModal(order)}
-                      >
-                        <FaEye className="inline mr-2" /> Xem chi tiết
-                      </button>
-                    </td>
-                  </tr>
-                ))}
+                {categorizedOrders[key as keyof typeof categorizedOrders].map(
+                  (order) => (
+                    <tr
+                      key={order._id}
+                      className="border-b hover:bg-gray-50 transition-colors"
+                    >
+                      <td className="p-4 text-gray-700">{order.orderCode}</td>
+                      <td className="p-4 text-gray-700">{order.dateOrder}</td>
+                      <td className="p-4 text-gray-700">
+                        {order.total_price.toLocaleString()}
+                      </td>
+                      <td className="p-4">
+                        <button
+                          className="view-button px-4 py-2 rounded-md text-white bg-blue-600 hover:bg-blue-700 transition-colors"
+                          onClick={() => openModal(order)}
+                        >
+                          <FaEye className="inline mr-2" /> Xem chi tiết
+                        </button>
+                      </td>
+                    </tr>
+                  )
+                )}
               </tbody>
             </table>
           ) : (
@@ -446,9 +463,7 @@ const Order: React.FC = () => {
                           <td className="p-2 text-gray-800">
                             {item.product.name || "Không xác định"}
                           </td>
-                          <td className="p-2 text-gray-800">
-                            {item.quantity}
-                          </td>
+                          <td className="p-2 text-gray-800">{item.quantity}</td>
                           <td className="p-2 text-gray-800">
                             {item.price.toLocaleString()}
                           </td>

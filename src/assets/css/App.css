@@ -2,7 +2,7 @@
 .app-container {
   min-height: 100vh;
   background-color: #f7fafc;
-  margin-left: 260px;
+  transition: margin-left 0.3s ease;
 }
 
 /* Sidebar với hiệu ứng kính mờ và gradient xanh đẹp hơn */
@@ -26,11 +26,24 @@
   transition: width 0.3s ease;
 }
 
+.sidebar.minimized {
+  width: 5rem;
+  padding: 1rem;
+}
+
+.app-container:has(.sidebar:not(.minimized)) {
+  margin-left: 260px;
+}
+
+.app-container:has(.sidebar.minimized) {
+  margin-left: 80px;
+}
+
 /* Tiêu đề sidebar với hiệu ứng gradient và phát sáng */
 .sidebar-title {
   font-size: 1.8rem;
   font-weight: 800;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   letter-spacing: 0.05em;
   background: linear-gradient(45deg, #ffffff, #81c784);
   -webkit-background-clip: text;
@@ -50,6 +63,12 @@
   height: 2px;
   background: linear-gradient(90deg, transparent, #81c784, transparent);
   animation: underline 3s infinite;
+}
+
+.sidebar.minimized .sidebar-title {
+  font-size: 1.2rem;
+  text-align: center;
+  display: block;
 }
 
 @keyframes underline {
@@ -91,8 +110,23 @@
   box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
 }
 
+.sidebar-link.active {
+  background-color: rgba(255, 255, 255, 0.3);
+  font-weight: 600;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
 .sidebar-link:active {
   transform: scale(0.95);
+}
+
+.sidebar.minimized .sidebar-link {
+  justify-content: center;
+  padding: 0.5rem;
+}
+
+.sidebar.minimized .sidebar-link .sidebar-text {
+  display: none;
 }
 
 /* Hiệu ứng ripple khi nhấn liên kết */
@@ -124,6 +158,10 @@
   transition: transform 0.3s ease;
 }
 
+.sidebar.minimized .sidebar-icon {
+  margin-right: 0;
+}
+
 .sidebar-link:hover .sidebar-icon {
   transform: rotate(15deg) scale(1.1);
 }
@@ -148,6 +186,16 @@
   transform: translateY(-2px);
 }
 
+.sidebar.minimized .logout-button {
+  padding: 0.5rem;
+  display: flex;
+  justify-content: center;
+}
+
+.sidebar.minimized .logout-button .sidebar-text {
+  display: none;
+}
+
 /* Main content */
 .main-content {
   padding: 2rem;
@@ -161,12 +209,24 @@
     width: 12rem;
   }
 
-  .app-container {
+  .sidebar.minimized {
+    width: 4rem;
+  }
+
+  .app-container:has(.sidebar:not(.minimized)) {
     margin-left: 12rem;
+  }
+
+  .app-container:has(.sidebar.minimized) {
+    margin-left: 4rem;
   }
 
   .sidebar-title {
     font-size: 1.5rem;
+  }
+
+  .sidebar.minimized .sidebar-title {
+    font-size: 1rem;
   }
 
   .sidebar-link {
@@ -188,12 +248,24 @@
     width: 10rem;
   }
 
-  .app-container {
+  .sidebar.minimized {
+    width: 3.5rem;
+  }
+
+  .app-container:has(.sidebar:not(.minimized)) {
     margin-left: 10rem;
+  }
+
+  .app-container:has(.sidebar.minimized) {
+    margin-left: 3.5rem;
   }
 
   .sidebar-title {
     font-size: 1.3rem;
+  }
+
+  .sidebar.minimized .sidebar-title {
+    font-size: 0.9rem;
   }
 
   .sidebar-link {
@@ -204,6 +276,10 @@
     width: 1rem;
     height: 1rem;
     margin-right: 0.5rem;
+  }
+
+  .sidebar.minimized .sidebar-icon {
+    margin-right: 0;
   }
 
   .logout-button {
