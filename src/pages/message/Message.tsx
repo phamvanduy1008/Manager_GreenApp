@@ -42,6 +42,7 @@ const Message: React.FC = () => {
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  
   };
 
   useEffect(() => {
@@ -138,6 +139,7 @@ const Message: React.FC = () => {
 
         if (data.success) {
           setConversations(data.conversations);
+          console.log(conversations);
         }
       } catch (error) {
         console.error('Lỗi khi lấy danh sách cuộc trò chuyện:', error);
@@ -341,3 +343,4 @@ const Message: React.FC = () => {
 };
 
 export default Message;
+

@@ -1,1 +1,1 @@
-export const ipAddress = "http://192.168.1.17:3000";
+export const ipAddress = "https://server-greenapp-render.onrender.com";
